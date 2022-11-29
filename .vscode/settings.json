@@ -1,0 +1,9 @@
+{
+  "discord.enabled": true,
+  "python.analysis.typeCheckingMode": "off",
+  "editor.formatOnSave": true,
+  "autopep8.importStrategy": "fromEnvironment",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+}
