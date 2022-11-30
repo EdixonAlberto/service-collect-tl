@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 telethon = "1.26.0"
+python-dotenv = "*"
 
 [dev-packages]
 autopep8 = "*"
