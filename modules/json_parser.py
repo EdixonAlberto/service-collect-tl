@@ -14,7 +14,13 @@ class DateTimeEncoder(json.JSONEncoder):
     return json.JSONEncoder.default(self, o)
 
 
-def save_json(path: str, result: list) -> None:
-  with open(path, 'w') as outfile:
-    json.dump(result, outfile, cls=DateTimeEncoder)
-    print('APP: Data saved in file json')
+def transform_dict(payload: dict) -> dict:
+  path_temp = 'result.json'
+
+  with open(path_temp, 'w') as outfile:
+    json.dump(payload, outfile, cls=DateTimeEncoder)
+
+  with open(path_temp) as dataJson:
+    dataDict = json.load(dataJson)
+
+  return dataDict

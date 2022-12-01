@@ -1,15 +1,19 @@
-import asyncio
+import json
 from os import getenv
 from dotenv import load_dotenv
-from datetime import datetime
+
 from modules.client import Client
-from modules.save import save_json
+from modules.json_parser import transform_dict
+from fastapi import FastAPI, Query
+
+# Get environments variables
+load_dotenv()
+
+app = FastAPI()
 
 
-async def main():
-  # Get environments variables
-  load_dotenv()
-
+@app.get('/api/collect_channel/{channel}')
+async def collect(channel: str, limit: int = Query(gt=0, lt=11), data: str = Query(regex="^messages$|^users$")):
   client = Client(
       username=getenv('USERNAME'),
       api_id=getenv('API_ID'),
@@ -17,11 +21,11 @@ async def main():
       phone=getenv('PHONE'),
       code_login=getenv('CODE_LOGIN'),
       password=getenv('PASSWORD'),
-      target_channel=getenv('TARGET_CHANNEL')
+      target_channel=channel
   )
-
   await client.run()
-  result = await client.messages()
-  save_json('docs/result.json', result)
 
-asyncio.run(main())
+  response = await client.execute(data, limit)
+  response = transform_dict(response)
+
+  return response

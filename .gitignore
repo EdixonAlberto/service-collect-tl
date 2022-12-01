@@ -1,8 +1,9 @@
 # App
 /docs
 __pycache__/
-*.session
+*.session-journal
 *.env
+result.json
 
 # vsCode
 /.vscode/*

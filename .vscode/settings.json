@@ -5,5 +5,5 @@
   "autopep8.importStrategy": "fromEnvironment",
   "[python]": {
     "editor.defaultFormatter": "ms-python.autopep8"
-  },
+  }
 }

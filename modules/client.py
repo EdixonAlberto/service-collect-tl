@@ -1,6 +1,7 @@
+from __future__ import annotations
 from telethon import TelegramClient
 from telethon.errors import SessionPasswordNeededError
-from modules.functions import Functions_tl
+from modules.functions import Functions
 
 
 class Client():
@@ -33,6 +34,7 @@ class Client():
     except SessionPasswordNeededError:
       await self.client.sign_in(password=self.password)
 
-  async def messages(self) -> list:
-    functions = Functions_tl(self.client, self.target_channel, 1)
-    return await functions.get_messages()
+  async def execute(self, data: str, limit: int) -> list | None:
+    functions = Functions(self.client, self.target_channel, limit)
+    method = 'get_{}'.format(data)
+    return await getattr(functions, method)()
