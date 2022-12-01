@@ -12,13 +12,11 @@ class Client():
       api_hash: str,
       phone: str,
       code_login: str,
-      password: str,
-      target_channel: str
+      password: str
   ) -> None:
     self.phone = phone
     self.code_login = code_login
     self.password = password
-    self.target_channel = target_channel
     # Create the client and connect
     self.client = TelegramClient(username, int(api_id), api_hash)
 
@@ -34,7 +32,7 @@ class Client():
     except SessionPasswordNeededError:
       await self.client.sign_in(password=self.password)
 
-  async def execute(self, data: str, limit: int) -> list | None:
-    functions = Functions(self.client, self.target_channel, limit)
+  async def execute(self, channel: str, data: str, limit: int) -> list | None:
+    functions = Functions(self.client, channel, limit)
     method = 'get_{}'.format(data)
     return await getattr(functions, method)()
