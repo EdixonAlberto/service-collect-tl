@@ -22,7 +22,7 @@ class Client():
 
   async def run(self) -> None:
     await self.client.start()
-    print("APP: Client created")
+    print("APP: Client running")
 
     # Ensure you're authorized
     if not await self.client.is_user_authorized():

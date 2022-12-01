@@ -16,4 +16,4 @@ autopep8 = "*"
 python_version = "3.8"
 
 [scripts]
-dev = "uvicorn main:app --reload"
+dev = "uvicorn main:app --reload --host localhost --port 8000"
