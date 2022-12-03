@@ -2,7 +2,7 @@ from os import getenv
 from dotenv import load_dotenv
 from modules.client import Client
 from modules.json_parser import transform_dict
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Request
 from fastapi.responses import JSONResponse
 
 # Get environments variables
@@ -20,16 +20,16 @@ client = Client(
 app = FastAPI()
 
 
-@app.middleware('http')
 # Authentication
-async def auth(request, call_next):
+@app.middleware('http')
+async def auth(request: Request, call_next):
   if not 'authorization' in request.headers:
     return JSONResponse(
         status_code=401,
         content={'error': "Header 'Authorization' is required"}
     )
 
-  headerToken = request.headers['authorization'].split(' ')[1]
+  headerToken = request.headers['authorization'].strip('Bearer ')
   token = getenv('ACCESS_TOKEN')
 
   if (headerToken == token):
@@ -41,14 +41,12 @@ async def auth(request, call_next):
     )
 
 
-@app.middleware('http')
 # Custom Cors
-async def custom_cors(request, call_next):
+@app.middleware('http')
+async def custom_cors(request: Request, call_next):
+  print(request.headers)
   if not 'origin' in request.headers:
-    return JSONResponse(
-        status_code=401,
-        content={'error': "Header 'Origin' is required"}
-    )
+    return await call_next(request)
 
   origin = request.headers['origin']
   whiteList = getenv('WHITE_LIST').split(',')

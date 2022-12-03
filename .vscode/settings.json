@@ -1,9 +1,12 @@
 {
-  "discord.enabled": true,
+  "discord.enabled": false,
   "python.analysis.typeCheckingMode": "off",
   "editor.formatOnSave": true,
   "autopep8.importStrategy": "fromEnvironment",
   "[python]": {
     "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
   }
 }
