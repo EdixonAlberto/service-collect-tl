@@ -1,30 +1,33 @@
 # Service Collect TL
 
-## Inicio
+Micro servicio para recolectar mensajes desde un canal de Telegram.
+
+### Inicio
 Instalar el administrador de entornos en Python `pipenv` y configuarar las variables de entorno usando el archivo [.env.template](./.env.template) como plantilla.
 ```bash
 pip install pipenv
 cp .env.template .env
 ```
 
-## Desarrollo
-Para desarrollar en el codigo primero se debe iniciar el entorno con `pipenv`, instalar todas las dependencias y por último arrancar el servidor con el script `dev` creado en el archivo [Pipfile](./Pipfile)
+### Desarrollo
+Para desarrollar en el codigo primero se debe iniciar el entorno con `pipenv`, instalar todas las dependencias y por último arrancar el servidor con el script `start`
 
-```bash
+```sh
 # Iniciar entorno
 pipenv shell
 
 # Instalar dependencias
-pipenv install
+pipenv install --dev
 
 # Inicar app en modo desarrollo
-pipenv run dev
+pipenv run start
 ```
-## Despliegue
+
+### Despliegue
 
 Para desplegar se debe instalar primero las depedencias a travez del archivo [requirements.txt](./requirements.txt) y luego arancar el servidor usando la libreria `uvicorn`
 
-```bash
+```sh
 # Build
 pip install -r requirements.txt
 
